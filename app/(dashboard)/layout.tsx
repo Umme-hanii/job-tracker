@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar";
-import { Sidebar } from "lucide-react";
+import Sidebar from "@/components/Sidebar";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

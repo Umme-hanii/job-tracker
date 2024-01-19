@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
 import ThemeToggle from "./ThemeToggle";
+import MemberProfile from "./MemberProfile";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -74,7 +75,7 @@ export function Navbar() {
             <ThemeToggle />
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <ThemeToggle />
+            <MemberProfile />
           </NavigationMenuItem>
         </div>
       </NavigationMenuList>

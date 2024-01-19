@@ -1,4 +1,11 @@
+import { LightbulbIcon } from "lucide-react";
+import { Button } from "./ui/button";
+
 const ThemeToggle = () => {
-  return <div>ThemeToggle</div>;
+  return (
+    <Button>
+      <LightbulbIcon />
+    </Button>
+  );
 };
 export default ThemeToggle;

@@ -1,10 +1,10 @@
 import MemberProfile from "./MemberProfile";
-import ThemeToggle from "./ThemeToggle";
+import { ThemeToggle } from "./ThemeToggle";
 import LinksDropDown from "./LinksDropdown";
 
 export function Navbar() {
   return (
-    <nav className="bg-muted py-4 px-4 sm:px-16 lg:px-24 flex justify-between items-center">
+    <nav className="bg-secondary py-4 px-4 sm:px-16 lg:px-24 flex justify-between items-center">
       <div>
         <LinksDropDown />
       </div>

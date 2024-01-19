@@ -13,7 +13,7 @@ const Sidebar = () => {
   const pathName = usePathname();
 
   return (
-    <aside className="bg-muted h-full py-4 px-8">
+    <aside className="bg-secondary h-full py-4 px-8">
       <Image src={Logo} alt="logo" className="mx-auto" priority />
 
       <div className="flex flex-col gap-y-4 mt-20">

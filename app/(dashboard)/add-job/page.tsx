@@ -1,5 +1,13 @@
+"use client";
+
+import CreateJobForm from "@/components/CreateJobForm";
+
 const AddJob = () => {
-  return <div>AddJob</div>;
+  return (
+    <>
+      <CreateJobForm />
+    </>
+  );
 };
 
 export default AddJob;

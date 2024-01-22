@@ -3,53 +3,40 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
+import { Form } from "./ui/form";
 import { Button } from "./ui/button";
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-});
+import { CustomFormField } from "./FormComponents";
+import { createAndEditJobSchema, createAndEditJobType } from "@/utils/types";
 
 const CreateJobForm = () => {
   // Define form
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<createAndEditJobType>({
+    resolver: zodResolver(createAndEditJobSchema),
     defaultValues: {
-      username: "",
+      position: "",
+      company: "",
+      location: "",
     },
   });
 
   //Define Submit Handler
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: createAndEditJobType) {
     console.log(values);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="username..." {...field} />
-              </FormControl>
-              <FormDescription>Provide Job title here</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="bg-muted p-8 rounded"
+      >
+        <h2 className="capitalize font-bold text-3xl">add job</h2>
+        <div className="my-3 grid gap-3 grid-cols-2 lg:grid-cols-3  ">
+          <CustomFormField name="position" control={form.control} />
+          <CustomFormField name="company" control={form.control} />
+          <CustomFormField name="location" control={form.control} />
+        </div>
+
         <Button type="submit">Create jOB</Button>
       </form>
     </Form>

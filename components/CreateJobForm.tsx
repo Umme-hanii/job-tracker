@@ -1,12 +1,17 @@
 "use client";
 
-import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Form } from "./ui/form";
 import { Button } from "./ui/button";
-import { CustomFormField } from "./FormComponents";
-import { createAndEditJobSchema, createAndEditJobType } from "@/utils/types";
+import {
+  JobMode,
+  JobStatus,
+  createAndEditJobSchema,
+  createAndEditJobType,
+} from "@/utils/types";
+import { CustomFormField, CustomSelectField } from "./FormComponents";
 
 const CreateJobForm = () => {
   // Define form
@@ -31,13 +36,25 @@ const CreateJobForm = () => {
         className="bg-muted p-8 rounded"
       >
         <h2 className="capitalize font-bold text-3xl">add job</h2>
-        <div className="my-3 grid gap-3 grid-cols-2 lg:grid-cols-3  ">
+        <div className="my-3 grid gap-3 grid-cols-2 lg:grid-cols-3 items-center ">
           <CustomFormField name="position" control={form.control} />
           <CustomFormField name="company" control={form.control} />
           <CustomFormField name="location" control={form.control} />
-        </div>
 
-        <Button type="submit">Create jOB</Button>
+          <CustomSelectField
+            name="status"
+            control={form.control}
+            labelText="job status"
+            items={Object.values(JobStatus)}
+          />
+          <CustomSelectField
+            name="mode"
+            control={form.control}
+            labelText="job mode"
+            items={Object.values(JobMode)}
+          />
+          <Button type="submit">Create jOB</Button>
+        </div>
       </form>
     </Form>
   );

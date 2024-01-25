@@ -12,8 +12,10 @@ import {
   createAndEditJobType,
 } from "@/utils/types";
 import { CustomFormField, CustomSelectField } from "./FormComponents";
+import { useToast } from "./ui/use-toast";
 
 const CreateJobForm = () => {
+  const { toast } = useToast();
   // Define form
   const form = useForm<createAndEditJobType>({
     resolver: zodResolver(createAndEditJobSchema),
@@ -26,6 +28,10 @@ const CreateJobForm = () => {
 
   //Define Submit Handler
   function onSubmit(values: createAndEditJobType) {
+    toast({
+      title: "Clicked on submit",
+      description: "Umme Hani",
+    });
     console.log(values);
   }
 

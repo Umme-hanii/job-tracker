@@ -1,8 +1,10 @@
+"use server";
+
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import prisma from "./db";
-import { JobType, createAndEditJobSchema, createAndEditJobType } from "./types";
+import { JobType, createAndEditJobSchema, CreateAndEditJobType } from "./types";
 
 const authenticateAndRedirect = (): string => {
   const { userId } = auth();
@@ -13,10 +15,10 @@ const authenticateAndRedirect = (): string => {
 };
 
 export async function createJobAction(
-  values: createAndEditJobType
+  values: CreateAndEditJobType
 ): Promise<JobType | null> {
-  const userId = authenticateAndRedirect();
   try {
+    const userId = authenticateAndRedirect();
     createAndEditJobSchema.parse(values);
     const job: JobType = await prisma.job.create({
       data: {

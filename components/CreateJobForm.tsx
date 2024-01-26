@@ -3,23 +3,25 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Form } from "./ui/form";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
 import { Button } from "./ui/button";
+import { Form } from "./ui/form";
+import { useToast } from "./ui/use-toast";
+
 import {
   JobMode,
   JobStatus,
-  JobType,
   createAndEditJobSchema,
-  createAndEditJobType,
+  CreateAndEditJobType,
 } from "@/utils/types";
-import { CustomFormField, CustomSelectField } from "./FormComponents";
-import { useToast } from "./ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
 import { createJobAction } from "@/utils/actions";
+import { CustomFormField, CustomSelectField } from "./FormComponents";
 
 const CreateJobForm = () => {
   // Define form
-  const form = useForm<createAndEditJobType>({
+  const form = useForm<CreateAndEditJobType>({
     resolver: zodResolver(createAndEditJobSchema),
     defaultValues: {
       position: "",
@@ -29,9 +31,11 @@ const CreateJobForm = () => {
   });
 
   const { toast } = useToast();
+  const router = useRouter();
   const { mutate, isPending } = useMutation({
-    mutationFn: (values: createAndEditJobType) => createJobAction(values),
+    mutationFn: (values: CreateAndEditJobType) => createJobAction(values),
     onSuccess: (data) => {
+      console.log("inside onSuccess", data);
       if (!data) {
         toast({
           description: "There was an error",
@@ -39,17 +43,13 @@ const CreateJobForm = () => {
         return;
       }
       toast({ description: "job created" });
+      router.push("/jobs");
     },
   });
 
   //Define Submit Handler
-  function onSubmit(values: createAndEditJobType) {
+  function onSubmit(values: CreateAndEditJobType) {
     mutate(values);
-    // toast({
-    //   title: "Clicked on submit",
-    //   description: "Umme Hani",
-    // });
-    // console.log(values);
   }
 
   return (

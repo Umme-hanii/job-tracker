@@ -8,14 +8,16 @@ import { Button } from "./ui/button";
 import {
   JobMode,
   JobStatus,
+  JobType,
   createAndEditJobSchema,
   createAndEditJobType,
 } from "@/utils/types";
 import { CustomFormField, CustomSelectField } from "./FormComponents";
 import { useToast } from "./ui/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { createJobAction } from "@/utils/actions";
 
 const CreateJobForm = () => {
-  const { toast } = useToast();
   // Define form
   const form = useForm<createAndEditJobType>({
     resolver: zodResolver(createAndEditJobSchema),
@@ -26,13 +28,28 @@ const CreateJobForm = () => {
     },
   });
 
+  const { toast } = useToast();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: createAndEditJobType) => createJobAction(values),
+    onSuccess: (data) => {
+      if (!data) {
+        toast({
+          description: "There was an error",
+        });
+        return;
+      }
+      toast({ description: "job created" });
+    },
+  });
+
   //Define Submit Handler
   function onSubmit(values: createAndEditJobType) {
-    toast({
-      title: "Clicked on submit",
-      description: "Umme Hani",
-    });
-    console.log(values);
+    mutate(values);
+    // toast({
+    //   title: "Clicked on submit",
+    //   description: "Umme Hani",
+    // });
+    // console.log(values);
   }
 
   return (
@@ -59,7 +76,13 @@ const CreateJobForm = () => {
             labelText="job mode"
             items={Object.values(JobMode)}
           />
-          <Button type="submit">Create jOB</Button>
+          <Button
+            type="submit"
+            className="self-end capitalize"
+            disabled={isPending}
+          >
+            Create job
+          </Button>
         </div>
       </form>
     </Form>

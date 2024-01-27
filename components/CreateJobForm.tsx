@@ -43,6 +43,7 @@ const CreateJobForm = () => {
         return;
       }
       toast({ description: "job created" });
+      // form.reset();
       router.push("/jobs");
     },
   });

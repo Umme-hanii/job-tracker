@@ -32,3 +32,21 @@ export async function createJobAction(
     return null;
   }
 }
+
+export async function getAllJobsAction(): Promise<JobType[]> {
+  try {
+    const userId = authenticateAndRedirect();
+    const jobs: JobType[] = await prisma.job.findMany({
+      where: {
+        clerkId: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return jobs;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}

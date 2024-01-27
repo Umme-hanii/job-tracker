@@ -7,18 +7,16 @@ import { JobType } from "@/utils/types";
 import JobCard from "./JobCard";
 
 const JobsList = () => {
-  const {
-    data: jobs,
-    isError,
-    isLoading,
-  } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["jobs"],
     queryFn: () => getAllJobsAction(),
   });
 
-  if (isError || !jobs) {
-    return <h2>Error fetching jobs</h2>;
-  }
+  const jobs = data || [];
+
+  if (isPending) return <h2 className="text-xl capitalize">please wait</h2>;
+  if (jobs.length < 1)
+    return <h2 className="text-xl capitalize">no jobs found</h2>;
 
   return (
     <section>

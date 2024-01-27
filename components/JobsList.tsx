@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getAllJobsAction } from "@/utils/actions";
 import { JobType } from "@/utils/types";
+import JobCard from "./JobCard";
 
 const JobsList = () => {
   const {
@@ -15,10 +16,6 @@ const JobsList = () => {
     queryFn: () => getAllJobsAction(),
   });
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-
   if (isError || !jobs) {
     return <h2>Error fetching jobs</h2>;
   }
@@ -26,12 +23,7 @@ const JobsList = () => {
   return (
     <section>
       {jobs.map((job: JobType) => {
-        return (
-          <div key={job.id}>
-            <h2>{job.position}</h2>
-            <span>{job.company}</span>
-          </div>
-        );
+        return <JobCard key={job.id} job={job} />;
       })}
     </section>
   );

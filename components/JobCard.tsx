@@ -14,6 +14,7 @@ import { MapPin, RadioTower, Calendar, Briefcase } from "lucide-react";
 
 import { JobType } from "@/utils/types";
 import JobInfo from "./JobInfo";
+import DeleteJobButton from "./DeleteJobButton";
 
 const JobCard = ({ job }: { job: JobType }) => {
   const date = new Date(job.createdAt).toLocaleDateString();
@@ -35,7 +36,7 @@ const JobCard = ({ job }: { job: JobType }) => {
       </CardContent>
       <CardFooter className="flex gap-4">
         <Button size="sm">edit</Button>
-        <Button size="sm">delete</Button>
+        <DeleteJobButton jobId={job.id} />
       </CardFooter>
     </Card>
   );

@@ -66,3 +66,23 @@ export async function deleteJobAction(jobId: string): Promise<JobType | null> {
     return null;
   }
 }
+
+export async function getJobAction(jobId: string): Promise<JobType | null> {
+  let job: JobType | null = null;
+  try {
+    const userId = authenticateAndRedirect();
+    job = await prisma.job.findUnique({
+      where: {
+        id: jobId,
+        clerkId: userId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    job = null;
+  }
+  if (!job) {
+    redirect("/jobs");
+  }
+  return job;
+}

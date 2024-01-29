@@ -19,7 +19,7 @@ const JobsList = () => {
     return <h2 className="text-xl capitalize">no jobs found</h2>;
 
   return (
-    <section>
+    <section className="grid md:grid-cols-2 gap-4">
       {jobs.map((job: JobType) => {
         return <JobCard key={job.id} job={job} />;
       })}

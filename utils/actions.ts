@@ -86,3 +86,25 @@ export async function getJobAction(jobId: string): Promise<JobType | null> {
   }
   return job;
 }
+
+export async function updateJobAction(
+  id: string,
+  values: CreateAndEditJobType
+): Promise<JobType | null> {
+  const userId = authenticateAndRedirect();
+  try {
+    const job = await prisma.job.update({
+      where: {
+        id,
+        clerkId: userId,
+      },
+      data: {
+        ...values,
+      },
+    });
+    return job;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

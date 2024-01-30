@@ -36,7 +36,7 @@ const JobCard = ({ job }: { job: JobType }) => {
       </CardContent>
       <CardFooter className="flex gap-4">
         <Button size="sm">edit</Button>
-        <DeleteJobButton jobId={job.id} />
+        <DeleteJobButton id={job.id} />
       </CardFooter>
     </Card>
   );

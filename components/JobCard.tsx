@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { MapPin, RadioTower, Calendar, Briefcase } from "lucide-react";
+
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import {
@@ -9,8 +12,6 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Separator } from "./ui/separator";
-
-import { MapPin, RadioTower, Calendar, Briefcase } from "lucide-react";
 
 import { JobType } from "@/utils/types";
 import JobInfo from "./JobInfo";
@@ -35,7 +36,9 @@ const JobCard = ({ job }: { job: JobType }) => {
         </Badge>
       </CardContent>
       <CardFooter className="flex gap-4">
-        <Button size="sm">edit</Button>
+        <Button asChild size="sm">
+          <Link href={`/jobs/${job.id}`}>edit</Link>
+        </Button>
         <DeleteJobButton id={job.id} />
       </CardFooter>
     </Card>

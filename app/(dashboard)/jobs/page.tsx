@@ -4,9 +4,10 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-import AllJobs from "@/components/JobsList";
-import { getAllJobsAction } from "@/utils/actions";
+import JobsList from "@/components/JobsList";
 import SearchForm from "@/components/SearchForm";
+
+import { getAllJobsAction } from "@/utils/actions";
 
 const JobsPage = async () => {
   const queryClient = new QueryClient();
@@ -19,7 +20,7 @@ const JobsPage = async () => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <SearchForm />
-      <AllJobs />
+      <JobsList />
     </HydrationBoundary>
   );
 };

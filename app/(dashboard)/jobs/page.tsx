@@ -6,6 +6,7 @@ import {
 
 import AllJobs from "@/components/JobsList";
 import { getAllJobsAction } from "@/utils/actions";
+import SearchForm from "@/components/SearchForm";
 
 const JobsPage = async () => {
   const queryClient = new QueryClient();
@@ -17,6 +18,7 @@ const JobsPage = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <SearchForm />
       <AllJobs />
     </HydrationBoundary>
   );

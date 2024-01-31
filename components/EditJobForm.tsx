@@ -28,9 +28,9 @@ const EditJobForm = ({ id }: { id: string }) => {
   const form = useForm<CreateAndEditJobType>({
     resolver: zodResolver(createAndEditJobSchema),
     defaultValues: {
-      position: data?.position,
-      company: data?.company,
-      location: data?.location,
+      position: data?.position || "",
+      company: data?.company || "",
+      location: data?.location || "",
       status: (data?.status as JobStatus) || JobStatus.Pending,
       mode: (data?.mode as JobMode) || JobMode,
     },
